@@ -23,6 +23,10 @@ export const jobSchema = new mongoose.Schema({
     type: String,
     enum: ['hibrido ', 'onsite'],
     default: 'onsite'
+  },
+  Vencimiento: {
+    type: Date,
+    required: true,
   }
 }, {
   timestamps: true

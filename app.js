@@ -4,11 +4,11 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import { dbConnect } from './config/db.js';
 
+
 dotenv.config();
 
 const app = express();
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
@@ -19,7 +19,7 @@ try {
   // Conexión a la BD
   dbConnect();
 
-  const PORT = process.env.PORT || 5000;
+  const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`🚀 Servidor corriendo en: http://localhost:${PORT}`);
   });
@@ -27,3 +27,8 @@ try {
 } catch (error) {
   console.error('❌ Error al iniciar el servidor:', error);
 }
+
+
+app.get('/prueba', (req, res) => {
+  res.json({ msg: 'Servidor está funcionando en el puerto 3000' });
+});

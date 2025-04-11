@@ -1,0 +1,32 @@
+import mongoose from "mongoose";
+
+export const jobSchema = new mongoose.Schema({
+  titulo: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  ubicacion: {
+    type: String,
+    required: true,
+  },
+  salario: {
+    type: Number,
+    required: true
+  },
+  tipoTrabajo: {
+    type: String,
+    enum: ['tiempo completo', 'parcial'],
+    default: 'tiempo completo'
+  },
+  Modalidad: {
+    type: String,
+    enum: ['hibrido ', 'onsite'],
+    default: 'onsite'
+  }
+}, {
+  timestamps: true
+});
+
+const User = mongoose.model('Job', jobSchema);
+export default Job;

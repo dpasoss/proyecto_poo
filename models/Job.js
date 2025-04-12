@@ -5,7 +5,7 @@ export const jobSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true
-  },
+  }, 
   ubicacion: {
     type: String,
     required: true,
@@ -27,6 +27,9 @@ export const jobSchema = new mongoose.Schema({
   Vencimiento: {
     type: Date,
     required: true,
+  },
+  descripcion: {
+    type: String,
   }
 }, {
   timestamps: true
@@ -34,3 +37,4 @@ export const jobSchema = new mongoose.Schema({
 
 const Job = mongoose.model('Job', jobSchema);
 export default Job;
+

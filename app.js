@@ -2,10 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
+import jobRoutes from './routes/jobRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+
 import { dbConnect } from './config/db.js';
 
 
-dotenv.config();
+dotenv.config(); 
 
 const app = express();
 
@@ -15,6 +18,8 @@ app.use(express.json());
 try {
   // Rutas
   app.use('/api/auth', authRoutes);
+  app.use('/job', jobRoutes);
+  app.use('/api/users', userRoutes);
 
   // Conexión a la BD
   dbConnect();

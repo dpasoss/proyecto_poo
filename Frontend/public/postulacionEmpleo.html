@@ -1,0 +1,61 @@
+<!--Creado por Diana Pasos-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aplicar a Vacante</title>
+  <link rel="stylesheet" href="/Frontend/src/css/postulacionEmpleo.css">
+</head>
+<body>
+
+  <main class="form-container">
+    <h2 id="tituloTrabajo">Aplicar para: ...</h2>
+    <p class="empresa" id="infoTrabajo">Cargando...</p>
+
+
+    <form id="formAplicacion" enctype="multipart/form-data">
+      <section>
+        <h3>Información Personal</h3>
+        <input type="text" placeholder="Nombre completo" name="nombre" required />
+        <input type="email" placeholder="Correo electrónico" name="correo" required />
+        <input type="tel" placeholder="Teléfono" name="telefono" required />
+      </section>
+
+      <section>
+        <h3>Experiencia y Documentos</h3>
+        <input type="number" placeholder="Años de experiencia" name="experiencia" />
+        <input type="url" placeholder="LinkedIn (opcional)" name="linkedin" />
+        <input type="url" placeholder="Portfolio/GitHub (opcional)" name="github" />
+        
+        <label>Adjuntar CV</label>
+        <input type="file" name="cv" accept=".pdf,.doc,.docx" />
+
+        <label>Adjuntar carta de presentación (opcional)</label>
+        <input type="file" name="carta" accept=".pdf,.doc,.docx" />
+      </section>
+
+      <section>
+        <h3>Preguntas Adicionales</h3>
+        <textarea name="interes" placeholder="¿Por qué estás interesado en este puesto?" rows="4"></textarea>
+        <input type="text" name="salario" placeholder="¿Cuáles son tus expectativas salariales?" />
+        <input type="text" name="incorporacion" placeholder="¿Cuándo podrías incorporarte?" />
+      </section>
+
+      <div class="acciones">
+        <button type="button" class="cancelar">Cancelar</button>
+        <button type="submit" class="enviar">Enviar Solicitud</button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2025 EmpleoYa | Sobre Nosotros | Contacto | Política de Privacidad | Términos y Condiciones</p>
+    <p>Síguenos en: <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">LinkedIn</a> | <a href="#">Instagram</a></p>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/Frontend/src/js/postulacionEmpleo.js"></script>
+</body>
+</html>

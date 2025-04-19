@@ -23,16 +23,18 @@ export const obtenerTrabajos = async (req, res) => {
   }
 };
 
-// Obtener un trabajo por ID
+//Obtener trabajo por ID 
 export const obtenerTrabajoPorId = async (req, res) => {
   try {
     const trabajo = await Job.findById(req.params.id);
     if (!trabajo) return res.status(404).json({ mensaje: "Trabajo no encontrado" });
     res.status(200).json(trabajo);
   } catch (error) {
+    console.error("❌ Error al obtener trabajo por ID:", error);
     res.status(500).json({ mensaje: "Error al obtener el trabajo", error });
   }
 };
+
 
 // Actualizar un trabajo
 export const actualizarTrabajo = async (req, res) => {
@@ -56,35 +58,76 @@ export const eliminarTrabajo = async (req, res) => {
   }
 };
 
+//Aplicar trabajo
 export const aplicarTrabajo = async (req, res) => {
-const { userId, jobId } = req.body;
+  const { user, job } = req.body;
+  console.log("📥 Datos recibidos en aplicarTrabajo:", req.body);
 
-try {
-    // Verifica que el usuario exista y sea un solicitante
-    const user = await User.findById(userId);
-    if (!user || user.rol !== "solicitante") {
-    return res.status(403).json({ mensaje: "Acceso denegado" });
+
+  try {
+    const usuario = await User.findById(user);
+    if (!usuario || usuario.rol !== "solicitante") {
+      return res.status(403).json({ mensaje: "Acceso denegado" });
     }
 
-    // Verifica que el trabajo exista
-    const job = await Job.findById(jobId);
-    if (!job) {
-    return res.status(404).json({ mensaje: "Trabajo no encontrado" });
+    const trabajo = await Job.findById(job);
+    if (!trabajo) {
+      return res.status(404).json({ mensaje: "Trabajo no encontrado" });
     }
 
-    // Verifica si ya aplicó
-    const yaAplico = await Application.findOne({ user: userId, job: jobId });
+    const yaAplico = await Application.findOne({ user, job });
     if (yaAplico) {
-    return res.status(400).json({ mensaje: "Ya aplicaste a este trabajo" });
+      return res.status(400).json({ mensaje: "Ya aplicaste a este trabajo" });
     }
 
-    // Crea nueva aplicación
-    const nuevaAplicacion = new Application({ user: userId, job: jobId });
+    const nuevaAplicacion = new Application({
+      user,
+      job,
+      nombre: req.body.nombre,
+      correo: req.body.correo,
+      telefono: req.body.telefono,
+      experiencia: req.body.experiencia,
+      linkedin: req.body.linkedin,
+      github: req.body.github,
+      interes: req.body.interes,
+      salario: req.body.salario,
+      incorporacion: req.body.incorporacion
+    });
+
     await nuevaAplicacion.save();
 
     res.status(201).json({ mensaje: "Aplicación enviada exitosamente" });
-} catch (error) {
-    console.error(error);
+  } catch (error) {
+    console.error("❌ Error al aplicar:", error);
     res.status(500).json({ mensaje: "Error al aplicar al trabajo" });
-}
+  }
+};
+
+
+// Buscar trabajos con filtros dinámicos 
+export const buscarTrabajos = async (req, res) => {
+  try {
+    const { titulo, ubicacion, salario, tipoTrabajo, modalidad } = req.query;
+
+    const filtros = {};
+
+    if (titulo) {
+      filtros.$or = [
+        { titulo: { $regex: titulo, $options: 'i' } },
+        { empresa: { $regex: titulo, $options: 'i' } }
+      ];
+    }
+    
+    if (ubicacion) filtros.ubicacion = { $regex: ubicacion, $options: 'i' };
+    if (salario) filtros.salario = { $gte: parseInt(salario) };
+    if (tipoTrabajo) filtros.tipoTrabajo = tipoTrabajo;
+    if (modalidad) filtros.Modalidad = modalidad;
+
+    const trabajos = await Job.find(filtros).sort({ createdAt: -1 });
+
+    res.status(200).json(trabajos);
+  } catch (error) {
+    console.error("❌ ERROR en buscarTrabajos:", error); 
+    res.status(500).json({ mensaje: "Error al buscar trabajos", error });
+  }
 };

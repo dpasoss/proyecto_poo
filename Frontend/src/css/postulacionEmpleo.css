@@ -1,0 +1,96 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  .form-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+  }
+  
+  h2 {
+    margin-bottom: 5px;
+  }
+  
+  .empresa {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 30px;
+  }
+  
+  form section {
+    margin-bottom: 30px;
+  }
+  
+  form h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #444;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  input[type="file"] {
+    margin-bottom: 16px;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  .acciones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .cancelar {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .enviar {
+    background-color: #337af1;
+    color: white;
+  }
+  
+  footer {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  
+  footer a {
+    color: #337af1;
+    text-decoration: none;
+  }
+  

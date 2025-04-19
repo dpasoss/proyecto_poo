@@ -16,13 +16,13 @@ export const jobSchema = new mongoose.Schema({
   },
   tipoTrabajo: {
     type: String,
-    enum: ['tiempo completo', 'parcial'],
-    default: 'tiempo completo'
+    enum: ['Tiempo completo', 'Parcial'],
+    default: 'Tiempo completo'
   },
   Modalidad: {
     type: String,
-    enum: ['hibrido', 'onsite'],
-    default: 'onsite'
+    enum: ['Hibrido', 'Remoto', 'Presencial'],
+    default: 'Presencial'
   },
   Vencimiento: {
     type: Date,

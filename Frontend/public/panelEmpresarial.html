@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Empresarial</title>
+    <link rel="stylesheet" href="/Frontend/src/css/panelEmpresarial.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navigation-wrap">
+            <div class="container">
+
+
+                <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">Inicio</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Buscador</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="panelEmpresarial.html">Panel empresarial</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Panel administrador</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <br>
+
+
+    <section class="container">
+        <h2>Lista de empleos</h2>
+        <div class="table-wrapper">
+            <table class="fl-table"> 
+                <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Salario</th>
+                    <th>Ubicación</th>
+                    <th>Tipo de trabajo</th>
+                    <th>Modalidad</th>
+                    <th>Vencimiento</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody id="tablaEmpleos">
+                </tbody>
+            </table>
+        </div>            
+    </section>
+
+    <br><br>
+
+    <section class="container">
+        <h2>Cantidad de candidatos</h2>
+        <div class="table-wrapper">
+            <table class="fl-table"> 
+                <thead>
+                <tr>
+                    <th>Cantidad candidatos</th>
+                </tr>
+                </thead>
+                <tbody id="tablaCandidatos">
+                </tbody>
+            </table>
+        </div>            
+    </section>
+
+    <br><br>
+
+    <section class="container pt-5"> 
+
+
+        <form class="form rectangulo">
+            <h2 class="titulo1">Registro Empleo</h2>
+            <br>
+
+            <div>
+                <label for="id" class="formbold-form-label">ID:</label>
+                <input type="text" name="id" id="id" class="form-control" readonly="true"/>
+            </div>  
+
+            <br>
+
+            <div>
+                <label for="titulo" class="formbold-form-label"> Título de trabajo: </label>
+                <input type="text" id="titulo" class="form-control"></input>
+            </div>
+
+            <br>
+            <div>
+                <label for="descripcion" class="formbold-form-label"> Descripción: </label>
+                <input type="text" id="descripcion" class="form-control"></input>
+            </div>
+
+            <br>
+            <div>
+                <label for="salario" class="formbold-form-label"> Salario: </label>
+                <input type="text" id="salario" class="form-control"></input>
+            </div>
+
+            <br>
+            <div>
+                <label for="ubicacion" class="formbold-form-label"> Ubicación: </label>
+                <input type="text" id="ubicacion" class="form-control"></input>
+            </div>
+
+            <br>
+            <div>
+                <label for="tipoTrabajo" class="formbold-form-label">Tipo de trabajo:</label>
+                <input type="text" id="tipoTrabajo" class="form-control"></input>
+
+            </div>
+            <br>
+            <div>
+                <label for="modalidad" class="formbold-form-label">Modalidad:</label>
+                <input type="text" id="modalidad" class="form-control"></input>
+
+            </div>
+            <br>
+
+            <div>
+                <label for="vencimiento" class="formbold-form-label"> Vencimiento: </label>
+                <input type="text" id="vencimiento" class="form-control"></input>
+            </div>
+            <br>
+
+            <button class="formbold-btn" id="btnListar">Listar</button>
+            <button class="formbold-btn" id="btnGuardar">Guardar</button>
+            <button class="formbold-btn" id="btnActualizar">Guardar Cambios</button>
+            <button class="formbold-btn" id="btnLimpiar">Limpiar</button>
+            
+        </form>    
+
+    </section>
+
+    <br><br>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/js/app.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
+</body>
+</html>

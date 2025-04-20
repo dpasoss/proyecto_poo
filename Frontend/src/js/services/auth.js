@@ -1,4 +1,4 @@
-import controller from './controllers/panelEmpleador.js';
+import controller from '../controllers/panelEmpleador.js';
 
 
 // Listado de libros que se obtienen desde el API

@@ -4,13 +4,14 @@ import Application from "../models/Application.js";
 
 // Crear un nuevo trabajo
 export const crearTrabajo = async (req, res) => {
-  try {
-    const nuevoTrabajo = new Job(req.body);
-    await nuevoTrabajo.save();
-    res.status(201).json(nuevoTrabajo); 
-  } catch (error) {
-    res.status(400).json({ mensaje: "Error al crear el trabajo", error });
-  }
+  try{
+       
+    const data = await Job.create(req.body);    
+    res.status(201).send(data);
+
+}catch(error){
+    res.status(500).send(error);
+}
 };
 
 // Obtener todos los trabajos

@@ -16,15 +16,15 @@ export const jobSchema = new mongoose.Schema({
   },
   tipoTrabajo: {
     type: String,
-    enum: ['Tiempo completo', 'Parcial'],
-    default: 'Tiempo completo'
+    enum: ['tiempo completo', 'parcial'],
+    default: 'tiempo completo'
   },
-  Modalidad: {
+  modalidad: {
     type: String,
-    enum: ['Hibrido', 'Remoto', 'Presencial'],
-    default: 'Presencial'
+    enum: ['hibrido', 'onsite'],
+    default: 'onsite'
   },
-  Vencimiento: {
+  vencimiento: {
     type: Date,
     required: true,
   },
@@ -37,4 +37,5 @@ export const jobSchema = new mongoose.Schema({
 
 const Job = mongoose.model('Job', jobSchema);
 export default Job;
+
 

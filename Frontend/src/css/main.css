@@ -1,0 +1,315 @@
+body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    background-color: rgb(232, 232, 232);
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+button {
+    background-color: blueviolet;
+    border: none;
+    width: 100%;
+    color: white;
+    border-radius: 10px !important;
+    font-size: 18px !important;
+    padding: 10px 0;
+    margin-bottom: 15px !important;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: rgb(71, 17, 121);
+}
+
+.titulo1, h1 {
+    color: rgb(71, 17, 121);
+}
+
+.headTable {
+    background-color: rgb(231, 206, 255);
+    border-radius: 30px !important;
+}
+
+#tblLibros {
+    background-color: rgb(248, 240, 255);
+}
+
+table {
+    border: solid 1px rgb(228, 198, 255) !important;
+    border-collapse: collapse;
+}
+
+label {
+    font-size: 16px !important;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+input {
+    transition: border 0.3s;
+}
+
+input:hover {
+    border: solid 1px rgb(71, 17, 121) !important;
+}
+
+.rectangulo {
+    padding: 40px 100px !important;
+    border: 1px solid rgb(71, 17, 121);
+    margin: 10px 180px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: white;
+}
+
+.inicio {
+    color: rgb(71, 17, 121);
+    text-decoration: none;
+    font-size: 18px !important;
+    transition: color 0.3s;
+}
+
+.inicio:hover {
+    color: rgb(168, 92, 240);
+}
+
+/* Nuevos estilos para el sistema de empleos */
+.container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    border: 1px solid rgb(228, 198, 255);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 18px;
+    margin: 15px 0;
+    color: #4a2b7a;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.form-group input::placeholder {
+    color: #bbb;
+}
+
+.hint {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 14px;
+    margin-top: 5px;
+    color: blueviolet;
+    text-decoration: none;
+}
+
+.divider {
+    border-top: 1px solid rgb(228, 198, 255);
+    margin: 20px 0;
+}
+
+.btn.secondary {
+    background-color: #f5f5f5;
+    color: blueviolet;
+    border: 1px solid blueviolet !important;
+}
+
+.btn.secondary:hover {
+    background-color: rgb(231, 206, 255);
+}
+
+.social-login {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.social-login p {
+    margin-bottom: 10px;
+    color: #7f8c8d;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icon {
+    padding: 10px 20px;
+    border: 1px solid #ddd !important;
+    border-radius: 10px !important;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.social-icon:hover {
+    background-color: #f5f5f5;
+    border-color: blueviolet !important;
+    color: blueviolet;
+}
+
+.terms {
+    font-size: 14px;
+    margin: 20px 0;
+    color: #7f8c8d;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+footer a {
+    color: blueviolet;
+    text-decoration: none;
+}
+
+.user-type-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(228, 198, 255);
+}
+
+.user-type-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #7f8c8d;
+    transition: all 0.3s;
+}
+
+.user-type-tab.active {
+    color: blueviolet;
+    border-bottom: 2px solid blueviolet;
+    font-weight: bold;
+}
+
+.profile-section {
+    margin-bottom: 30px;
+}
+
+.profile-photo {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.profile-photo img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgb(231, 206, 255);
+}
+
+.upload-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: rgb(231, 206, 255);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.upload-btn:hover {
+    background-color: rgb(213, 173, 255);
+}
+
+.profile-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.profile-table td {
+    padding: 10px;
+    border-bottom: 1px solid rgb(228, 198, 255);
+}
+
+.profile-table td:first-child {
+    font-weight: 500;
+    width: 30%;
+}
+
+.profile-table input, 
+.profile-table textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.profile-table textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.error-message {
+    color: #d9534f !important;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+.success-message {
+    color: #5cb85c !important;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    
+    .rectangulo {
+        padding: 20px !important;
+        margin: 10px 20px;
+    }
+    
+    .social-icons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .social-icon {
+        justify-content: center;
+    }
+}

@@ -1,0 +1,189 @@
+body{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    background-color: rgb(232, 232, 232);
+}
+
+button {
+    background-color: blueviolet;
+    border: none;
+    width: 200px;
+    color: white;
+    border-radius: 10px !important;
+    font-size: 18px !important;
+    padding: 10px 0;
+    margin-bottom: 15px !important;
+}
+
+button:hover {
+    background-color: rgb(71, 17, 121);
+}
+
+.titulo1 {
+    color: rgb(71, 17, 121);
+}
+
+.headTable{
+    background-color: rgb(231, 206, 255);
+    border-radius: 30px !important;
+}
+
+#tblLibros{
+    background-color: rgb(248, 240, 255);
+}
+
+table {
+    border: solid 1px rgb(228, 198, 255) !important;
+}
+
+label {
+    font-size: 16px !important;
+}
+
+input:hover {
+    border: solid 1px rgb(71, 17, 121);
+}
+
+.rectangulo {
+    padding: 20px 80px !important;
+    border: 1px solid rgb(71, 17, 121);
+    /* margin: 0px 180px 80px 180px !important; */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.inicio {
+    color: rgb(71, 17, 121);
+    text-decoration: none;
+    font-size: 18px !important;
+
+}
+
+.inicio:hover {
+    color: rgb(168, 92, 240);
+}
+
+.form-control {
+    width: 100%;
+}
+
+/* Table Styles */
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    background-color: white;
+}
+  
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table td {
+  border-right: 1px solid #f8f8f8;
+  font-size: 14px;
+}
+
+.fl-table thead th {
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 10px;
+  color: #ffffff;
+  background: blueviolet;
+}
+
+
+.fl-table tr:nth-child(even) {
+  background: #F8F8F8;
+}
+
+/* BARRA DE NAVEGACION */
+
+.navigation-wrap {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    z-index: 10000;
+    transition: all 0.3s ease-out;
+}
+
+.navigation-wrap .nav-item {
+    padding: 0 10px;
+    transition: all 0.3s linear;
+}
+
+.navigation-wrap.scroll-on {
+    position: fixed;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 2px 28px 0 rgb(0, 0, 0, 0.09);
+    transition: all 0.15s ease-in-out 0s;
+}
+
+.navigation-wrap.scroll-on .nav-link {
+    color: #000;
+}
+
+.navigation-wrap.scroll-on .nav-link:hover,
+.navigation-wrap.scroll-on .nav-link.active {
+    color: rgb(168, 92, 240) !important;
+
+}
+
+.nav-link {
+    font-size: 20px !important;
+    font-weight: bolder !important;
+    letter-spacing: 1px;
+    color: #fff;
+    border-bottom: 1px solid rgb(255, 255, 255);
+
+}
+
+.nav-link:hover {
+    color: rgb(168, 92, 240) !important;
+    border-bottom: 1px solid blueviolet;
+}
+
+.navbar-collapse {
+    text-align: center;
+}
+
+.navbar {
+    box-shadow: 0 4px 4px 0 rgba(118, 118, 118, 0.2), 0 3px 3px 0 rgb(171, 154, 187);
+}
+
+
+/* MENU HAMBURGUESA */
+
+.navbar-toggler:focus {
+    outline: none;
+    border: unset;
+    box-shadow: none;
+}
+
+.navbar-toggler {
+    background-color: #d6dbe3;
+    border: 3px solid #fff;
+}
+
+.navbar-toggler:hover {
+    background-color: #d6dbe3;
+}
+
+.custom-toggler.navbar-toggler {
+    border-color: #fff;
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.custom-toggler .navbar-toggler-icon:hover {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}

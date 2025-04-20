@@ -1,6 +1,7 @@
 // ================================
 // Registro de Empresa
 // ================================
+import User from "../models/user";
 
 document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('companyForm');
@@ -30,19 +31,19 @@ async function handleCompanySubmit(e) {
     const submitBtn = e.target.querySelector('button[type="submit"]');
     disableButton(submitBtn, 'Creando cuenta...');
 
+    const user = new User(companyName.value, email.value, password.value, 'empleador', { identificacionFiscal: taxId.value })
+
     // Enviar solicitud
     try {
         const res = await fetch('http://localhost:3000/api/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                nombre: companyName.value,
-                correo: email.value,
-                contraseña: password.value,
+                nombre: user.nombre,
+                correo: user.correo,
+                contraseña: user.contraseña,
                 rol: 'empleador',
-                datosEmpleador: {
-                    identificacionFiscal: taxId.value
-                }
+                datosEmpleador: user.datosEmpleador
             })
         });
 

@@ -1,6 +1,7 @@
 // ================================
 // Registro de Candidato
 // ================================
+import User from "../models/user";
 
 document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('candidateForm');
@@ -29,17 +30,19 @@ async function handleCandidateSubmit(e) {
     const submitBtn = e.target.querySelector('button[type="submit"]');
     disableButton(submitBtn, 'Creando cuenta...');
 
+    const user = new User(fullName.value, email.value, password.value, 'candidato', {})
+
     // Enviar solicitud
     try {
         const res = await fetch('http://localhost:3000/api/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                nombre: fullName.value,
-                correo: email.value,
-                contraseña: password.value,
-                rol: 'candidato',
-                datosCandidato: {}
+                nombre: user.nombre,
+                correo: user.correo,
+                contraseña: user.contraseña,
+                rol: user.rol,
+                datosCandidato: user.datosCandidato
             })
         });
 

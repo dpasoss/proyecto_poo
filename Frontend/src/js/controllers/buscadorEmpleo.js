@@ -3,7 +3,7 @@ document.getElementById("filterBtn").addEventListener("click", async () => {
     const ubicacion = document.getElementById("location").value;
     const salario = document.getElementById("salary").value;
     const tipoTrabajo = document.getElementById("type").value;
-    const modalidad = document.getElementById("modality").value;
+    const modalidad = document.getElementById("modalidad").value;
   
     const queryParams = new URLSearchParams({
       ...(titulo && { titulo }),
@@ -32,7 +32,7 @@ document.getElementById("filterBtn").addEventListener("click", async () => {
           <td>${trabajo.empresa || "No especificado"}</td>
           <td>${trabajo.ubicacion}</td>
           <td>₡${trabajo.salario.toLocaleString()}</td>
-          <td>${trabajo.Modalidad}</td>
+          <td>${trabajo.modalidad || "No especificado"}</td>
           <td><button class="btn-aplicar" onclick="aplicarTrabajo('${trabajo._id}')">Aplicar</button></td>
         `;
         tabla.appendChild(fila);
@@ -49,7 +49,7 @@ document.getElementById("filterBtn").addEventListener("click", async () => {
     document.getElementById("location").value = "";
     document.getElementById("salary").value = "";
     document.getElementById("type").value = "";
-    document.getElementById("modality").value = "";
+    document.getElementById("modalidad").value = "";
   
     const tabla = document.querySelector("#jobs-table tbody");
     tabla.innerHTML = "";
@@ -59,4 +59,5 @@ document.getElementById("filterBtn").addEventListener("click", async () => {
   function aplicarTrabajo(id) {
     window.location.href = `postulacionEmpleo.html?id=${id}`;
   }
+  
   

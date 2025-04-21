@@ -21,11 +21,11 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Inicio</a>
+                            <a class="nav-link" aria-current="page" href="index.html">Inicio</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Buscador</a>
+                            <a class="nav-link" href="buscadorEmpleo.html">Buscador</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="panelEmpresarial.html">Panel empresarial</a>
@@ -54,7 +54,8 @@
                     <th>Ubicación</th>
                     <th>Tipo de trabajo</th>
                     <th>Modalidad</th>
-                    <th>Vencimiento</th>
+                    <th>Vencimiento</th> 
+                    <th>Empresa</th> 
                     <th>Modificar</th>
                     <th>Eliminar</th>
                 </tr>
@@ -141,6 +142,12 @@
             </div>
             <br>
 
+            <div style="display: none;">
+                <label for="empresa" class="formbold-form-label"> Empresa: </label>
+                <input type="text" id="empresa" class="form-control" readonly/>
+            </div>
+
+            <br>
             <button class="formbold-btn" id="btnListar">Listar</button>
             <button class="formbold-btn" id="btnGuardar">Guardar</button>
             <button class="formbold-btn" id="btnActualizar">Guardar Cambios</button>

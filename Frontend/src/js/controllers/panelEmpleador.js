@@ -1,6 +1,24 @@
 import api from '../services/panelEmpresarial.js';
 import { Job } from '../models/job.js';
 
+document.addEventListener("DOMContentLoaded", () => {
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+    const navEmpresarial = document.getElementById('nav-panel-empresarial');
+    const navAdmin = document.getElementById('nav-panel-admin');
+
+    // Ocultar Panel Empresarial si no es empleador
+    if (usuario?.rol !== 'empleador' && navEmpresarial) {
+        navEmpresarial.style.display = 'none';
+    }
+
+    // Ocultar Panel Administrador si no es admin
+    if (usuario?.rol !== 'admin' && navAdmin) {
+        navAdmin.style.display = 'none';
+    }
+});
+
+
 document.addEventListener("DOMContentLoaded", async () => {
     const usuario = JSON.parse(localStorage.getItem('usuario'));
 
@@ -229,4 +247,5 @@ export default{
     obtenerCantidadCandidatos,
     limpiar
 };
+
 

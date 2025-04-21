@@ -1,3 +1,21 @@
+
+document.addEventListener("DOMContentLoaded", () => {
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+  const navEmpresarial = document.getElementById('nav-panel-empresarial');
+  const navAdmin = document.getElementById('nav-panel-admin');
+
+  // Ocultar Panel Empresarial si no es empleador
+  if (usuario?.rol !== 'empleador' && navEmpresarial) {
+      navEmpresarial.style.display = 'none';
+  }
+
+  // Ocultar Panel Administrador si no es admin
+  if (usuario?.rol !== 'admin' && navAdmin) {
+      navAdmin.style.display = 'none';
+  }
+});
+
 document.getElementById("filterBtn").addEventListener("click", async () => {
     const titulo = document.querySelector(".search-input").value;
     const ubicacion = document.getElementById("location").value;
@@ -60,4 +78,5 @@ document.getElementById("filterBtn").addEventListener("click", async () => {
     window.location.href = `postulacionEmpleo.html?id=${id}`;
   }
   
+
   

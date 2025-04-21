@@ -1,9 +1,9 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background: #f7f7f7;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+  background-color: rgb(232, 232, 232);
     margin: 0;
     padding: 0;
-    color: #333;
+    color: #333; 
   }
   
   .form-container {
@@ -93,4 +93,91 @@ body {
     color: #337af1;
     text-decoration: none;
   }
+  
+/* BARRA DE NAVEGACION */
+
+.navigation-wrap {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  z-index: 10000;
+  transition: all 0.3s ease-out;
+}
+
+.navigation-wrap .nav-item {
+  padding: 0 10px;
+  transition: all 0.3s linear;
+}
+
+.navigation-wrap.scroll-on {
+  position: fixed;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 2px 28px 0 rgb(0, 0, 0, 0.09);
+  transition: all 0.15s ease-in-out 0s;
+}
+
+.navigation-wrap.scroll-on .nav-link {
+  color: #000;
+}
+
+.navigation-wrap.scroll-on .nav-link:hover,
+.navigation-wrap.scroll-on .nav-link.active {
+  color: rgb(168, 92, 240) !important;
+
+}
+
+.nav-link {
+  font-size: 20px !important;
+  font-weight: bolder !important;
+  letter-spacing: 1px;
+  color: #fff;
+  border-bottom: 1px solid rgb(255, 255, 255);
+
+}
+
+.nav-link:hover {
+  color: rgb(168, 92, 240) !important;
+  border-bottom: 1px solid blueviolet;
+}
+
+.navbar-collapse {
+  text-align: center;
+}
+
+.navbar {
+  box-shadow: 0 4px 4px 0 rgba(118, 118, 118, 0.2), 0 3px 3px 0 rgb(171, 154, 187);
+}
+
+
+/* MENU HAMBURGUESA */
+
+.navbar-toggler:focus {
+  outline: none;
+  border: unset;
+  box-shadow: none;
+}
+
+.navbar-toggler {
+  background-color: #d6dbe3;
+  border: 3px solid #fff;
+}
+
+.navbar-toggler:hover {
+  background-color: #d6dbe3;
+}
+
+.custom-toggler.navbar-toggler {
+  border-color: #fff;
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.custom-toggler .navbar-toggler-icon:hover {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
   

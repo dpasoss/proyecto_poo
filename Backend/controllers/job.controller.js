@@ -10,7 +10,7 @@ export const crearTrabajo = async (req, res) => {
     res.status(201).send(data);
 
 }catch(error){
-    res.status(500).send(error);
+    res.status(500).send(error); 
 }
 };
 
@@ -122,7 +122,7 @@ export const buscarTrabajos = async (req, res) => {
     if (ubicacion) filtros.ubicacion = { $regex: ubicacion, $options: 'i' };
     if (salario) filtros.salario = { $gte: parseInt(salario) };
     if (tipoTrabajo) filtros.tipoTrabajo = tipoTrabajo;
-    if (modalidad) filtros.Modalidad = modalidad;
+    if (modalidad) filtros.modalidad = modalidad;
 
     const trabajos = await Job.find(filtros).sort({ createdAt: -1 });
 
@@ -132,3 +132,4 @@ export const buscarTrabajos = async (req, res) => {
     res.status(500).json({ mensaje: "Error al buscar trabajos", error });
   }
 };
+

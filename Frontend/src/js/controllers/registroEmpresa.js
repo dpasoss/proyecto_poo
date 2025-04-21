@@ -1,7 +1,7 @@
 // ================================
 // Registro de Empresa
 // ================================
-import User from "../models/user";
+import { User } from "../models/user.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('companyForm');
@@ -23,6 +23,7 @@ async function handleCompanySubmit(e) {
     const confirmPassword = document.getElementById('confirmPassword');
 
     const fields = [companyName, taxId, email, password, confirmPassword];
+    clearValidation(fields);
 
     // Validación
     if (!validateCompanyForm(companyName, taxId, email, password, confirmPassword)) return;
@@ -50,17 +51,17 @@ async function handleCompanySubmit(e) {
         const data = await res.json();
 
         if (res.ok) {
-            alert('Cuenta empresarial creada con éxito');
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
-            window.location.href = 'index.html';
+            window.location.href = 'login.html';
+
         } else {
-            alert(data.msg || 'Error al registrar empresa');
-            enableButton(submitBtn, 'Registrarse');
+            showError(email, data.msg || 'Error al registrar empresa');
+            enableButton(submitBtn, 'Crear cuenta');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Error del servidor');
-        enableButton(submitBtn, 'Registrarse');
+        showError(email, 'Error del servidor');
+        enableButton(submitBtn, 'Crear cuenta');
     }
 }
 
@@ -71,8 +72,8 @@ async function handleCompanySubmit(e) {
 function validateCompanyForm(name, taxId, email, password, confirmPassword) {
     let isValid = true;
 
-    isValid &= checkRequired(name, 'El nombre de la empresa es requerido');
-    isValid &= checkRequired(taxId, 'El RUC/NIT/RFC es requerido');
+    isValid &= checkRequired(name, 'El nombre de la empresa es obligatorio');
+    isValid &= checkRequired(taxId, 'El RUC/NIT/RFC es obligatorio');
     isValid &= checkEmail(email);
     isValid &= checkPassword(password);
     isValid &= checkMatch(password, confirmPassword, 'Las contraseñas no coinciden');

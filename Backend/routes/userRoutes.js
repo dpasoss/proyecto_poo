@@ -1,11 +1,17 @@
-//En este archivo esta la definición de todas las rutas de la entidad libro
+//En este archivo esta la definición de todas las rutas de la entidad usuario
 import express from 'express';
-import userController from '../controllers/user.cotroller.js';
+import {
+    listarUsuarios
+  } from '../controllers/user.cotroller.js'; 
 
 // Este es el objeto manejador de las rutas de la entidad user
 const router = express.Router();
 
-router.get("/", userController.listarUsuarios);
+router.get("/", listarUsuarios);
+// router.delete('/:id', eliminarUsuario);
+// router.get('/:id', obtenerUsuarioPorId);
+// router.put('/:id', actualizarUsuario);
+// router.put('/usuarios/:id/estado', cambiarEstadoUsuario);
 
-export default router; 
+export default router;
 

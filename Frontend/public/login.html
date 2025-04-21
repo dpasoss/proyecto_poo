@@ -15,16 +15,19 @@
             <div class="form-group">
                 <label for="email">Correo electrónico</label>
                 <input type="email" id="email" placeholder="ejemplo@correo.com">
+                <p class="error-message"></p> 
             </div>
             
             <div class="form-group">
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" placeholder="Ingresa tu contraseña">
                 <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                <p class="error-message"></p>
+
             </div>
             
             <button type="submit" class="btn">Iniciar Sesión</button>
-        </form>
+        </form> 
         
         <div class="divider"></div>
         
@@ -45,7 +48,8 @@
         <p>© 2023 EmpleoYa | <a href="#" class="inicio">Política de Privacidad</a> | <a href="#" class="inicio">Términos y Condiciones</a></p>
     </footer>
     
-    <script src="../src/js/services/auth.js"></script>
-    <script src="../src/js/services/login.js"></script>
+    <script src="../src/js/utils.js"></script>
+    <!-- <script type="module" src="../src/js/services/auth.js"></script> -->
+    <script type="module" src="../src/js/services/login.js"></script>
 </body>
 </html>

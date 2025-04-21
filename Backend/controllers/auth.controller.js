@@ -17,7 +17,7 @@ export const register = async (req, res) => {
       correo,
       contraseña,
       rol,
-      datosCandidato: rol === 'candidato' ? datosCandidato : undefined,
+      datosCandidato: rol === 'solicitante' ? datosCandidato : undefined,
       datosEmpleador: rol === 'empleador' ? datosEmpleador : undefined
     });
 

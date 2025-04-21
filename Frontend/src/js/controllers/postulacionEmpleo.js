@@ -12,7 +12,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         const trabajo = await res.json();
   
         document.getElementById("tituloTrabajo").textContent = `Aplicar para: ${trabajo.titulo}`;
-        document.getElementById("infoTrabajo").textContent = `${trabajo.empresa || 'Empresa no especificada'} • ${trabajo.ubicacion} • ${trabajo.Modalidad}`;
+        document.getElementById("infoTrabajo").textContent = `${trabajo.empresa || 'Empresa no especificada'} • ${trabajo.ubicacion} • ${trabajo.modalidad}`;
       } catch (error) {
         console.error("Error al cargar el trabajo:", error);
       }

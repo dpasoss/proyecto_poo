@@ -1,35 +1,32 @@
 import api from '../services/panelEmpresarial.js';
 import { Job } from '../models/job.js';
 
-document.addEventListener("DOMContentLoaded", () => {
-    const usuario = JSON.parse(localStorage.getItem('usuario'));
-
-    const navEmpresarial = document.getElementById('nav-panel-empresarial');
-    const navAdmin = document.getElementById('nav-panel-admin');
-
-    // Ocultar Panel Empresarial si no es empleador
-    if (usuario?.rol !== 'empleador' && navEmpresarial) {
-        navEmpresarial.style.display = 'none';
-    }
-
-    // Ocultar Panel Administrador si no es admin
-    if (usuario?.rol !== 'admin' && navAdmin) {
-        navAdmin.style.display = 'none';
-    }
-});
-
-
 document.addEventListener("DOMContentLoaded", async () => {
     const usuario = JSON.parse(localStorage.getItem('usuario'));
 
-    if (usuario && usuario.rol === 'empleador') {
-        // Asigna automáticamente el nombre de la empresa al campo del formulario
-        document.getElementById('empresa').value = usuario.datosEmpleador?.nombreEmpresa || usuario.nombre;
+    // Mostrar/Ocultar elementos según el rol
+    const navEmpresarial = document.getElementById('nav-panel-empresarial');
+    const navAdmin = document.getElementById('nav-panel-admin');
+    const navBuscador = document.getElementById('nav-buscador');
+
+
+    if (usuario.rol !== 'empleador' && navEmpresarial) { 
+        navEmpresarial.style.display = 'none';
+        navBuscador.style.display = 'none';
     }
 
-    await obtenerTrabajos();
-    await obtenerCantidadCandidatos();
+    if (usuario.rol !== 'admin' && navAdmin) {
+        navAdmin.style.display = 'none';
+        navBuscador.style.display = 'none';
+
+    }
+
+    // Asignar automáticamente nombre de empresa
+    document.getElementById('empresa').value = usuario.datosEmpleador?.nombreEmpresa || usuario.nombre;
+
+    
 });
+
 
 export async function crearTrabajo() { 
  
@@ -44,9 +41,21 @@ export async function crearTrabajo() {
         const vencimiento = document.getElementById("vencimiento").value;
         const empresa = document.getElementById("empresa").value;
 
+        const salarioNumber = parseFloat(salario);
+        const vencimientoDate = new Date(vencimiento);
 
-        const nuevoEmpleo = new Job(titulo,descripcion,salario,ubicacion,tipoTrabajo,modalidad,vencimiento,empresa);
-      
+        const nuevoEmpleo = new Job(
+            null,
+            titulo,
+            descripcion,
+            salarioNumber,
+            ubicacion,
+            tipoTrabajo,
+            modalidad,
+            vencimientoDate,
+            empresa
+        );
+
         const respuesta = await api.crearTrabajo(nuevoEmpleo);
 
       //4. Mostrar los datos en el formulario
@@ -55,6 +64,12 @@ export async function crearTrabajo() {
     } catch (error) {
     console.log(error);
     }
+
+    if (!titulo || !descripcion || !salario || !ubicacion) {
+        alert("Por favor completa todos los campos obligatorios.");
+        return;
+    }
+    
 }
 
 // export async function obtenerTrabajos() { 
@@ -96,22 +111,25 @@ export async function crearTrabajo() {
 // }
 
 export async function obtenerTrabajos() { 
-    try {    
+    try {
         const usuario = JSON.parse(localStorage.getItem('usuario'));
-
         if (!usuario || usuario.rol !== 'empleador') return;
 
         const nombreEmpresa = usuario.datosEmpleador?.nombreEmpresa || usuario.nombre;
 
         const empleos = await api.obtenerTrabajos();
-        const tablaEmpleos = document.getElementById("tablaEmpleos");
-        tablaEmpleos.innerHTML = "";    
-
-        // Filtrar empleos solo de esta empresa
         const empleosEmpresa = empleos.filter(empleo => empleo.empresa === nombreEmpresa);
 
-        empleosEmpresa.forEach(empleo => {
-            let row = tablaEmpleos.insertRow();
+        const tablaEmpleos = document.getElementById("tablaEmpleos");
+        tablaEmpleos.innerHTML = "";
+
+        if (empleosEmpresa.length === 0) {
+            tablaEmpleos.innerHTML = "<tr><td colspan='11'>🔍 No hay empleos registrados aún.</td></tr>";
+            return;
+        }
+
+        empleosEmpresa.forEach(async empleo => {
+            const row = tablaEmpleos.insertRow();
             row.insertCell(0).innerHTML = empleo.titulo;
             row.insertCell(1).innerHTML = empleo.descripcion;
             row.insertCell(2).innerHTML = empleo.salario;
@@ -120,25 +138,36 @@ export async function obtenerTrabajos() {
             row.insertCell(5).innerHTML = empleo.modalidad;
             row.insertCell(6).innerHTML = empleo.vencimiento; 
             row.insertCell(7).innerHTML = empleo.empresa; 
-            row.insertCell(8).innerHTML = empleo.aplicantes; 
+
+            const cellAplicantes = row.insertCell(8);
+            cellAplicantes.innerHTML = 'Cargando...';
+
+            try {
+                const respuesta = await fetch(`http://localhost:3000/job/solicitante/${empleo._id}`);
+                const data = await respuesta.json();
+                cellAplicantes.innerHTML = data.cantidad;
+            } catch (error) {
+                console.error('❌ Error al obtener candidatos:', error);
+                cellAplicantes.innerHTML = 'Error';
+            }
 
             const btnModificar = document.createElement('button');
             btnModificar.className = 'formbold-btn-sucess';
             btnModificar.textContent = 'Modificar';
-            btnModificar.onclick = () => cargarEmpleo(`${empleo._id}`);            
+            btnModificar.onclick = () => cargarEmpleo(empleo._id);            
             row.insertCell(9).appendChild(btnModificar);            
-            
+
             const btnEliminar = document.createElement('button');
             btnEliminar.className = 'formbold-btn-danger';
             btnEliminar.textContent = 'Eliminar';
             btnEliminar.onclick = () => eliminarTrabajo(empleo._id);            
             row.insertCell(10).appendChild(btnEliminar); 
         });
-
     } catch (error) {
-        console.log(error);
+        console.error('❌ Error en obtenerTrabajos:', error);
     }
 }
+
 
 
 export async function cargarEmpleo(id) {
@@ -174,11 +203,12 @@ export async function actualizarTrabajo() {
         const tipoTrabajo = document.getElementById("tipoTrabajo").value;
         const modalidad = document.getElementById("modalidad").value;
         const vencimiento = document.getElementById("vencimiento").value;
-        const empresa = document.getElementById("empresa").value;
+        const empresaTrabajo = document.getElementById("empresa").value;
 
-        const empleoModificado = new Job(titulo, descripcion, salario, ubicacion, tipoTrabajo, modalidad, vencimiento, empresa, id);        
+        const empleoModificado = new Job(id, titulo, descripcion, salario, ubicacion, tipoTrabajo, modalidad, vencimiento, empresaTrabajo);        
         console.log(empleoModificado)
 
+        console.log("🆔 ID del empleo modificado:", empleoModificado.id);
         const respuesta = await api.actualizarTrabajo(empleoModificado);
   
         //4. Mostrar los datos en el formulario
@@ -188,6 +218,8 @@ export async function actualizarTrabajo() {
       console.log(error);
       }
 }
+
+
 
 export async function eliminarTrabajo(id) {
 
@@ -204,26 +236,26 @@ export async function eliminarTrabajo(id) {
     }
 }
 
-async function obtenerCantidadCandidatos() {
-    try {
-        const usuario = JSON.parse(localStorage.getItem('usuario'));
-        if (!usuario || usuario.rol !== 'empleador') return;
+// async function obtenerCantidadCandidatos() {
+//     try {
+//         const usuario = JSON.parse(localStorage.getItem('usuario'));
+//         if (!usuario || usuario.rol !== 'empleador') return;
 
-        const nombreEmpresa = usuario.nombre;
+//         const nombreEmpresa = usuario.nombre;
 
-        const res = await fetch(`http://localhost:3000/api/empleos/candidatos/${nombreEmpresa}`);
-        const data = await res.json();
+//         const res = await fetch(`http://localhost:3000/api/empleos/candidatos/${nombreEmpresa}`);
+//         const data = await res.json();
 
-        const tabla = document.getElementById('tablaCandidatos');
-        tabla.innerHTML = '';
+//         const tabla = document.getElementById('tablaCandidatos');
+//         tabla.innerHTML = '';
 
-        const row = tabla.insertRow();
-        row.insertCell(0).innerText = data.cantidad;
+//         const row = tabla.insertRow();
+//         row.insertCell(0).innerText = data.cantidad;
 
-    } catch (error) {
-        console.error('Error al obtener cantidad de candidatos:', error);
-    }
-}
+//     } catch (error) {
+//         console.error('Error al obtener cantidad de candidatos:', error);
+//     }
+// }
 
 
 export async function limpiar() {
@@ -235,7 +267,6 @@ export async function limpiar() {
     document.getElementById("tipoTrabajo").value = "";
     document.getElementById("modalidad").value = "";
     document.getElementById("vencimiento").value = "";
-    document.getElementById("empresa").value = "";
 
 }
 
@@ -244,8 +275,9 @@ export default{
     obtenerTrabajos,
     actualizarTrabajo,
     eliminarTrabajo,
-    obtenerCantidadCandidatos,
     limpiar
 };
+
+
 
 

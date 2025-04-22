@@ -30,6 +30,10 @@ export const jobSchema = new mongoose.Schema({
   },
   descripcion: {
     type: String,
+  },
+  activo: {
+    type: Boolean,
+    default: true
   }
 }, {
   timestamps: true
@@ -37,5 +41,7 @@ export const jobSchema = new mongoose.Schema({
 
 const Job = mongoose.model('Job', jobSchema);
 export default Job;
+
+
 
 

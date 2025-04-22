@@ -1,6 +1,6 @@
-console.log("Usuario cargado:", JSON.parse(localStorage.getItem("usuario")));
-console.log("Trabajo ID (de la URL):", new URLSearchParams(window.location.search).get("id"));
-console.log("Trabajo ID (guardado):", localStorage.getItem("trabajoId"));
+// console.log("Usuario cargado:", JSON.parse(localStorage.getItem("usuario")));
+// console.log("Trabajo ID (de la URL):", new URLSearchParams(window.location.search).get("id"));
+// console.log("Trabajo ID (guardado):", localStorage.getItem("trabajoId"));
 
 // =======================
 // Mostrar/ocultar paneles según rol
@@ -125,6 +125,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   });
   
   
+
 
   
   

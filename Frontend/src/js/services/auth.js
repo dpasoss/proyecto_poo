@@ -39,7 +39,7 @@ function setupTabSwitcher() {
                 
                 const type = this.getAttribute('data-type');
                 if (type === 'candidate') {
-                    window.location.href = 'registroCandidato.html';
+                    window.location.href = 'registroCandidato.html'; 
                 } else if (type === 'company') {
                     window.location.href = 'registroEmpresa.html';
                 }
@@ -52,3 +52,4 @@ function setupTabSwitcher() {
 document.addEventListener('DOMContentLoaded', function() {
     setupTabSwitcher();
 });
+

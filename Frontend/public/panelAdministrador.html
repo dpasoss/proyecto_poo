@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel del Administrador</title>
+  <link rel="stylesheet" href="/Frontend/src/css/panelAdministrador.css" />
+</head>
+<body>
+
+  <main class="admin-container">
+    <h1>Panel de Administrador</h1>
+    <p class="subtext">Gestiona usuarios, empleos y publicaciones desde este panel</p>
+
+    
+    <section class="admin-cards" id="adminHome">
+      <div class="card">
+        <h3>Usuarios</h3>
+        <p>Visualiza y administra los usuarios registrados en la plataforma.</p>
+        <button onclick="mostrarSeccion('usuarios')">Gestionar</button>
+      </div>
+
+      <div class="card">
+        <h3>Empleos</h3>
+        <p>Consulta y modifica las publicaciones activas e inactivas.</p>
+        <button onclick="mostrarSeccion('empleos')">Ver Empleos</button>
+      </div>
+
+      <div class="card">
+        <h3>Agregar Empleo</h3>
+        <p>Crea un nuevo listado de empleo manualmente como administrador.</p>
+        <button onclick="mostrarSeccion('agregar')">Agregar</button>
+      </div>
+
+      <div class="card">
+        <h3>Moderación</h3>
+        <p>Inactiva o elimina publicaciones que no cumplan con las normas.</p>
+        <button onclick="mostrarSeccion('moderacion')">Revisar</button>
+      </div>
+    </section>
+
+    
+    <section class="admin-section" id="usuarios" style="display:none">
+      <h2>Gestión de Usuarios</h2>
+      <button class="btn" onclick="volverInicio()">← Volver</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="tablaUsuarios">
+          <!-- Aquí se llenará con JS -->
+        </tbody>
+      </table>
+    </section>
+
+ 
+    <section class="admin-section" id="empleos" style="display:none">
+      <h2>Listado de Empleos</h2>
+      <button class="btn" onclick="volverInicio()">← Volver</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Ubicación</th>
+            <th>Modalidad</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="tablaEmpleos">
+          <!-- Aquí se llenará con JS -->
+        </tbody>
+      </table>
+    </section>
+
+  
+    <section class="admin-section" id="agregar" style="display:none">
+      <h2>Agregar Empleo</h2>
+      <button class="btn" onclick="volverInicio()">← Volver</button>
+      <p>Formulario aquí próximamente 😄</p>
+    </section>
+
+    
+    <section class="admin-section" id="moderacion" style="display:none">
+      <h2>Moderación de Publicaciones</h2>
+      <button class="btn" onclick="volverInicio()">← Volver</button>
+      <p>Herramientas de moderación próximamente ✨</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2025 EmpleoYa | Sobre Nosotros | Contacto | Política de Privacidad | Términos y Condiciones</p>
+    <p>Síguenos en <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">LinkedIn</a> | <a href="#">Instagram</a></p>
+  </footer>
+
+  <script src="/Frontend/src/js/panelAdministrador.js"></script>
+
+</body>
+</html>

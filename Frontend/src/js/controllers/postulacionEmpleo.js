@@ -1,20 +1,39 @@
+console.log("Usuario cargado:", JSON.parse(localStorage.getItem("usuario")));
+console.log("Trabajo ID (de la URL):", new URLSearchParams(window.location.search).get("id"));
+console.log("Trabajo ID (guardado):", localStorage.getItem("trabajoId"));
 
+// =======================
+// Mostrar/ocultar paneles según rol
+// =======================
 document.addEventListener("DOMContentLoaded", () => {
-  const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+  const user = JSON.parse(localStorage.getItem("usuario"));
 
   const navEmpresarial = document.getElementById('nav-panel-empresarial');
   const navAdmin = document.getElementById('nav-panel-admin');
 
   // Ocultar Panel Empresarial si no es empleador
-  if (usuario?.rol !== 'empleador' && navEmpresarial) {
+  if (user?.rol !== 'empleador' && navEmpresarial) {
       navEmpresarial.style.display = 'none';
   }
 
   // Ocultar Panel Administrador si no es admin
-  if (usuario?.rol !== 'admin' && navAdmin) {
+  if (user?.rol !== 'admin' && navAdmin) {
       navAdmin.style.display = 'none';
   }
+
+    // Validar si es solicitante
+    if (!user || user.rol !== 'solicitante') {
+      alert("⛔ Solo usuarios solicitantes pueden aplicar a empleos.");
+      window.location.href = "index.html";
+    }
 });
+
+
+
+// =======================
+// Cargar datos del trabajo
+// =======================
 
 window.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
@@ -22,6 +41,12 @@ window.addEventListener("DOMContentLoaded", async () => {
   
     // Guardamos el ID para usarlo después en el login! 
     localStorage.setItem("trabajoId", trabajoId);
+
+    if (!trabajoId) {
+      alert("❌ No se proporcionó el ID del trabajo en la URL.");
+      window.location.href = "buscadorEmpleo.html";
+      return;
+    }
   
     // Mostrar datos del trabajo arriba del formulario
     if (trabajoId) {
@@ -37,12 +62,21 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   });
   
-  // Envío del formulario
+// =======================
+// Envío del formulario
+// =======================
+
   document.getElementById("formAplicacion").addEventListener("submit", async (e) => {
     e.preventDefault();
-  
-    const userId = localStorage.getItem("userId"); // lo dará tu compañera al hacer login
+
+
+    const user = JSON.parse(localStorage.getItem("usuario"));
+    const userId = user?.id;
+
     const jobId = localStorage.getItem("trabajoId");
+
+    console.log("userId:", userId);
+    console.log("jobId:", jobId);
   
     if (!userId || !jobId) {
       alert("Falta el usuario o el ID del trabajo. Asegurate de haber iniciado sesión.");
@@ -89,5 +123,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       alert("Error de red al enviar la solicitud.");
     }
   });
+  
+  
+
   
   

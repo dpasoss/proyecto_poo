@@ -1,5 +1,6 @@
 export class Job {
-    constructor(titulo, descripcion, salario, ubicacion, tipoTrabajo, modalidad, vencimiento, id) {
+    constructor(id, titulo, descripcion, salario, ubicacion, tipoTrabajo, modalidad, vencimiento, empresa) {
+      this._id = id;
       this.titulo = titulo;
       this.descripcion = descripcion;
       this.salario = salario;
@@ -7,6 +8,7 @@ export class Job {
       this.tipoTrabajo = tipoTrabajo;
       this.modalidad = modalidad;
       this.vencimiento = vencimiento;
-      this.id = id;
-    }
+      this.empresa = empresa;
+  }
 }
+

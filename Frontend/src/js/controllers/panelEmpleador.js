@@ -61,8 +61,25 @@ export async function crearTrabajo() {
       //4. Mostrar los datos en el formulario
         document.getElementById("id").value = respuesta._id;
 
+        //mensaje de creacion exitosa
+        Swal.fire({
+        icon: 'success',
+        title: 'Información correcta',
+        text: 'El empleo fue registrado correctamente.',
+        timer: 2000,
+        showConfirmButton: false
+    });
+
     } catch (error) {
-    console.log(error);
+        console.error("Error al crear trabajo:", error);
+
+        //mensaje de error
+        Swal.fire({
+            icon: 'error',
+            title: 'Ocurrio un error al crear el empleo',
+            text: error.response?.data?.mensaje || 'Ocurrió un error. Intenta nuevamente.',
+            timer: 2000,
+        });
     }
 
     if (!titulo || !descripcion || !salario || !ubicacion) {
@@ -213,10 +230,29 @@ export async function actualizarTrabajo() {
   
         //4. Mostrar los datos en el formulario
         console.log(`Empleo modificado: ${respuesta}`)
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Empleo actualizado',
+            text: 'Los cambios fueron guardados exitosamente.',
+            timer: 2000,
+            showConfirmButton: false
+        });
+        
   
-      } catch (error) {
-      console.log(error);
-      }
+        } catch (error) {
+            console.error("Error al actualizar trabajo:", error);
+
+            //mensaje de error
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al actualizar el empleo',
+                text: error.response?.data?.mensaje || 'Ocurrió un error. Intenta nuevamente.',
+                timer: 2000,
+
+            });
+        }
+    
 }
 
 
@@ -231,9 +267,27 @@ export async function eliminarTrabajo(id) {
 
         await obtenerTrabajos();
 
-    } catch (error) {
-    console.log(error);
-    }
+        Swal.fire({
+            icon: 'success',
+            title: 'Empleo eliminado',
+            text: 'El empleo fue eliminado correctamente.',
+            timer: 2000,
+            showConfirmButton: false
+        });
+
+        } catch (error) {
+            console.error("Error al eliminar trabajo:", error);
+
+            //mensaje de error
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al eliminar el empleo',
+                text: error.response?.data?.mensaje || 'Ocurrió un error. Intenta nuevamente.',
+                timer: 2000,
+
+            });
+        }
+    
 }
 
 // async function obtenerCantidadCandidatos() {
@@ -277,7 +331,6 @@ export default{
     eliminarTrabajo,
     limpiar
 };
-
 
 
 

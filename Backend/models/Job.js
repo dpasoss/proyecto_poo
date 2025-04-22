@@ -21,7 +21,7 @@ export const jobSchema = new mongoose.Schema({
   },
   modalidad: {
     type: String,
-    enum: ['hibrido', 'onsite'],
+    enum: ['hibrido', 'onsite', 'remoto'],
     default: 'onsite'
   },
   vencimiento: {
@@ -31,9 +31,14 @@ export const jobSchema = new mongoose.Schema({
   descripcion: {
     type: String,
   },
-  activo: {
-    type: Boolean,
-    default: true
+
+  empresa: {
+    type: String,
+  },
+  
+  aplicantes: {
+    type: Number,
+    default: 0
   }
 }, {
   timestamps: true

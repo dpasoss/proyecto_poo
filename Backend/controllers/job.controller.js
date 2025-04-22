@@ -133,3 +133,21 @@ export const buscarTrabajos = async (req, res) => {
   }
 };
 
+//Actualizar trabajos para el admin
+export const actualizarTrabajo = async (req, res) => {
+  try {
+    const trabajoActualizado = await Job.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    if (!trabajoActualizado) {
+      return res.status(404).json({ mensaje: "Trabajo no encontrado" });
+    }
+
+    res.status(200).json(trabajoActualizado);
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al actualizar trabajo", error });
+  }
+};

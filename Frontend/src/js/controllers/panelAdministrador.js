@@ -81,7 +81,7 @@ async function cargarEmpleos() {
       fila.innerHTML = `
         <td>${empleo.titulo}</td>
         <td>${empleo.ubicacion}</td>
-        <td>${empleo.Modalidad || 'No especificado'}</td>
+        <td>${empleo.modalidad || 'No especificado'}</td>
         <td>
           <button class="btn-edit" onclick="editarEmpleo('${empleo._id}')">Editar</button>
           <button class="btn-delete" onclick="eliminarEmpleo('${empleo._id}')">Eliminar</button>

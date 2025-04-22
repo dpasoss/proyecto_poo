@@ -80,7 +80,7 @@
   
     <section class="admin-section" id="agregar" style="display:none">
       <h2>Agregar Empleo</h2>
-      <button class="btn" onclick="volverInicio()">← Volver</button>
+      <button onclick="window.location.href='/Frontend/public/panelEmpresarial.html'">Agregar</button>
       <p>Formulario aquí próximamente 😄</p>
     </section>
 
@@ -92,6 +92,21 @@
     </section>
 
   </main>
+
+  <div id="modalEditar" class="modal" style="display: none;">
+    <div class="modal-content">
+      <h3 id="modalTitulo">Editar Información</h3>
+      <form id="formEditar">
+        <!-- Campos dinámicos -->
+      </form>
+      <div class="modal-acciones">
+        <button type="button" class="btn" onclick="guardarCambios()">Guardar</button>
+        <button type="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  
+
 
   <footer>
     <p>© 2025 EmpleoYa | Sobre Nosotros | Contacto | Política de Privacidad | Términos y Condiciones</p>

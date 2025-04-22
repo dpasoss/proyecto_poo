@@ -1,15 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const usuario = JSON.parse(localStorage.getItem('usuario'));
-  const navEmpresarial = document.getElementById('nav-panel-empresarial');
-
-  if (usuario?.rol === 'admin' && navEmpresarial) {
-    navEmpresarial.style.display = 'none';
-  }
-});
-
-
-
-// Mostrar secciones tipo SPA
 function mostrarSeccion(id) {
   document.getElementById("adminHome").style.display = "none";
   document.querySelectorAll(".admin-section").forEach(sec => sec.style.display = "none");
@@ -18,8 +6,6 @@ function mostrarSeccion(id) {
   if (id === "usuarios") cargarUsuarios();
   if (id === "empleos") cargarEmpleos();
 }
-
-
 
 function volverInicio() {
   document.querySelectorAll(".admin-section").forEach(sec => sec.style.display = "none");
@@ -52,10 +38,10 @@ async function cargarUsuarios() {
   }
 }
 
-// Editar usuario (placeholder)
+
 function editarUsuario(id) {
   alert(`🔧 Aquí editarías el usuario con ID: ${id}`);
-  // window.location.href = `/editarUsuario.html?id=${id}`;
+ 
 }
 
 // Eliminar usuario con confirmación nativa
@@ -95,7 +81,7 @@ async function cargarEmpleos() {
       fila.innerHTML = `
         <td>${empleo.titulo}</td>
         <td>${empleo.ubicacion}</td>
-        <td>${empleo.modalidad || 'No especificado'}</td>
+        <td>${empleo.Modalidad || 'No especificado'}</td>
         <td>
           <button class="btn-edit" onclick="editarEmpleo('${empleo._id}')">Editar</button>
           <button class="btn-delete" onclick="eliminarEmpleo('${empleo._id}')">Eliminar</button>
@@ -108,10 +94,10 @@ async function cargarEmpleos() {
   }
 }
 
-// Editar empleo (placeholder)
+
 function editarEmpleo(id) {
   alert(`✏️ Aquí editarías el empleo con ID: ${id}`);
-  // window.location.href = `/editarEmpleo.html?id=${id}`;
+
 }
 
 // Eliminar empleo
@@ -134,6 +120,82 @@ async function eliminarEmpleo(id) {
     }
   } catch (error) {
     alert("❌ Error al eliminar el empleo.");
+    console.error("Error:", error);
+  }
+}
+
+let entidadEnEdicion = null;
+let tipoEdicion = ''; // "usuario" o "empleo"
+
+function editarUsuario(id) {
+  tipoEdicion = 'usuario';
+  fetch(`http://localhost:3000/api/users/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      entidadEnEdicion = data;
+      abrirModal('Editar Usuario', [
+        { name: 'nombre', value: data.nombre },
+        { name: 'correo', value: data.correo },
+        { name: 'rol', value: data.rol }
+      ]);
+    });
+}
+
+function editarEmpleo(id) {
+  tipoEdicion = 'empleo';
+  fetch(`http://localhost:3000/job/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      entidadEnEdicion = data;
+      abrirModal('Editar Empleo', [
+        { name: 'titulo', value: data.titulo },
+        { name: 'ubicacion', value: data.ubicacion },
+        { name: 'Modalidad', value: data.Modalidad }
+      ]);
+    });
+}
+
+function abrirModal(titulo, campos) {
+  const form = document.getElementById('formEditar');
+  document.getElementById('modalTitulo').textContent = titulo;
+  form.innerHTML = '';
+  campos.forEach(campo => {
+    form.innerHTML += `<label>${campo.name}</label>
+      <input type="text" name="${campo.name}" value="${campo.value}" required />`;
+  });
+  document.getElementById('modalEditar').style.display = 'flex';
+}
+
+function cerrarModal() {
+  document.getElementById('modalEditar').style.display = 'none';
+  entidadEnEdicion = null;
+  tipoEdicion = '';
+}
+
+//Guarda los cambios del editar del admin
+async function guardarCambios() {
+  const form = document.getElementById('formEditar');
+  const data = Object.fromEntries(new FormData(form));
+  const id = entidadEnEdicion._id;
+  const endpoint = tipoEdicion === 'usuario' ? 'api/users' : 'job';
+
+  try {
+    const res = await fetch(`http://localhost:3000/${endpoint}/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+
+    if (res.ok) {
+      alert("✅ Cambios guardados correctamente.");
+      cerrarModal();
+      tipoEdicion === 'usuario' ? cargarUsuarios() : cargarEmpleos();
+    } else {
+      alert("❌ Error al guardar los cambios.");
+      console.error(json);
+    }
+  } catch (error) {
     console.error("Error:", error);
   }
 }

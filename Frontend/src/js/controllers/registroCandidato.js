@@ -177,7 +177,7 @@ import { User } from "../models/user.js";
 // ================================
 // Registro de solicitante
 // ================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => { 
     const registerForm = document.getElementById('candidateForm');
     if (registerForm) registerForm.addEventListener('submit', handleCandidateSubmit);
 
@@ -226,7 +226,15 @@ async function handleCandidateSubmit(e) {
 
         if (res.ok) {
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
-            window.location.href = 'login.html';
+            const successMsg = document.getElementById('success-message');
+            if (successMsg) {
+                successMsg.style.display = 'block';
+            }
+            // Esperar 2 segundos antes de redirigir
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 2000);
+            
         } else {
             showFormError(email, data.msg || 'Error al registrar el usuario');
             enableButton(submitBtn, 'Crear cuenta');
@@ -313,4 +321,5 @@ function isValidEmail(email) {
 function isValidPassword(password) {
     return password.length >= 8;
 }
+
 

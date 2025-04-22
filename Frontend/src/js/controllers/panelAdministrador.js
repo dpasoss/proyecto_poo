@@ -1,3 +1,22 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+  // Redirigir si no es admin
+  if (!usuario || usuario.rol !== 'admin') {
+    alert("⛔ Acceso denegado. Solo administradores pueden ingresar.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  // Ocultar el panel empresarial si el rol es admin
+  const navEmpresarial = document.getElementById('nav-panel-empresarial');
+  if (navEmpresarial) {
+    navEmpresarial.style.display = 'none';
+  }
+});
+
+
+
 function mostrarSeccion(id) {
   document.getElementById("adminHome").style.display = "none";
   document.querySelectorAll(".admin-section").forEach(sec => sec.style.display = "none");
@@ -150,7 +169,7 @@ function editarEmpleo(id) {
       abrirModal('Editar Empleo', [
         { name: 'titulo', value: data.titulo },
         { name: 'ubicacion', value: data.ubicacion },
-        { name: 'Modalidad', value: data.Modalidad }
+        { name: 'modalidad', value: data.modalidad }
       ]);
     });
 }
@@ -199,4 +218,5 @@ async function guardarCambios() {
     console.error("Error:", error);
   }
 }
+
 

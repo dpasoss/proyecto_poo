@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (usuario?.rol !== 'admin' && navAdmin) {
       navAdmin.style.display = 'none';
   }
+
+
 });
 
 document.getElementById("filterBtn").addEventListener("click", async () => {
@@ -78,5 +80,8 @@ document.getElementById("filterBtn").addEventListener("click", async () => {
     window.location.href = `postulacionEmpleo.html?id=${id}`;
   }
   
+
+  
+
 
   

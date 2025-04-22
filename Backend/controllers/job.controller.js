@@ -2,14 +2,17 @@ import Job from "../models/Job.js";
 import User from "../models/User.js";
 import Application from "../models/Application.js";
 
+
 // Crear un nuevo trabajo
 export const crearTrabajo = async (req, res) => {
   try{
-       
+    
+    console.log("📦 Datos recibidos para crear trabajo:", req.body);
     const data = await Job.create(req.body);    
     res.status(201).send(data);
 
 }catch(error){
+    console.error("❌ Error al crear trabajo:", error);
     res.status(500).send(error); 
 }
 };
@@ -123,20 +126,48 @@ export const buscarTrabajos = async (req, res) => {
 };
 
 //Actualizar trabajos para el admin
-export const actualizarTrabajo = async (req, res) => {
-  try {
-    const trabajoActualizado = await Job.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+// export const actualizarTrabajo = async (req, res) => {
+//   try {
+//     const trabajoActualizado = await Job.findByIdAndUpdate(
+//       req.params.id,
+//       req.body,
+//       { new: true }
+//     );
 
-    if (!trabajoActualizado) {
-      return res.status(404).json({ mensaje: "Trabajo no encontrado" });
-    }
+//     if (!trabajoActualizado) {
+//       return res.status(404).json({ mensaje: "Trabajo no encontrado" });
+//     }
 
-    res.status(200).json(trabajoActualizado);
-  } catch (error) {
-    res.status(500).json({ mensaje: "Error al actualizar trabajo", error });
+//     res.status(200).json(trabajoActualizado);
+//   } catch (error) {
+//     res.status(500).json({ mensaje: "Error al actualizar trabajo", error });
+//   }
+// };
+
+// función para actualizar un libro (PUT)
+export const actualizarTrabajo = async(req,res)=>{   
+  try{
+      const {id}  = req.params;
+      const data = await Job.findByIdAndUpdate(id,req.body);
+      res.status(200).send(data);
+
+  }catch(error){
+      res.status(500).send(error);
   }
 };
+
+export const obtenerCandidatosPorTrabajo = async (req, res) => {
+  const jobId = req.params.id;
+
+  try {
+    const aplicaciones = await Application.find({ job: jobId });
+    res.status(200).json({ cantidad: aplicaciones.length });
+  } catch (error) {
+    console.error("Error al obtener candidatos:", error);
+    res.status(500).json({ mensaje: "Error al obtener candidatos", error });
+  }
+};
+
+
+
+

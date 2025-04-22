@@ -46,7 +46,8 @@ export async function crearTrabajo(empleos) {
     }
 }
 
-export async function actualizarTrabajo(empleos) {
+
+export async function actualizarTrabajo(empleos) { 
 
     try{
         const options = {
@@ -56,7 +57,9 @@ export async function actualizarTrabajo(empleos) {
             },
             body: JSON.stringify(empleos)
         };
-        const res = await fetch(`${URL_API}/${empleos.id}`, options);
+
+        console.log("📦 Enviando al backend:", empleos);
+        const res = await fetch(`${URL_API}/${empleos._id}`, options);
         const empleoActualizado = await res.json();
         return empleoActualizado;
     
@@ -64,6 +67,7 @@ export async function actualizarTrabajo(empleos) {
         console.error("Error: ", error);
     }
 }
+
 
 export async function eliminarTrabajo(id) {
 
@@ -90,3 +94,4 @@ export default{
     eliminarTrabajo
     
 };
+

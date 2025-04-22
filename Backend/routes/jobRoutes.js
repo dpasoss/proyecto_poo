@@ -6,7 +6,8 @@ import {
   actualizarTrabajo,
   eliminarTrabajo,
   aplicarTrabajo,
-  buscarTrabajos
+  buscarTrabajos,
+  obtenerCandidatosPorTrabajo
 } from '../controllers/job.controller.js';
 
 
@@ -17,7 +18,11 @@ router.post('/', crearTrabajo);
 router.delete('/:id', eliminarTrabajo);
 router.post('/aplicar', aplicarTrabajo);
 router.get('/buscar', buscarTrabajos);
-router.get('/:id', obtenerTrabajoPorId);
+router.get('/:id', obtenerTrabajoPorId);                    
 router.put('/:id', actualizarTrabajo);
+router.get('/solicitante/:id', obtenerCandidatosPorTrabajo); 
+
+// router.put('/estado/:id', cambiarEstadoTrabajo);
+
 
 export default router;

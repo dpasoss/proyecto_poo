@@ -52,7 +52,14 @@ async function handleCompanySubmit(e) {
 
         if (res.ok) {
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
-            window.location.href = 'login.html';
+            const successMsg = document.getElementById('success-message');
+            if (successMsg) {
+                successMsg.style.display = 'block';
+            }
+        
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 2000);
 
         } else {
             showError(email, data.msg || 'Error al registrar empresa');

@@ -1,3 +1,14 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  const navEmpresarial = document.getElementById('nav-panel-empresarial');
+
+  if (usuario?.rol === 'admin' && navEmpresarial) {
+    navEmpresarial.style.display = 'none';
+  }
+});
+
+
+
 // Mostrar secciones tipo SPA
 function mostrarSeccion(id) {
   document.getElementById("adminHome").style.display = "none";
@@ -7,6 +18,8 @@ function mostrarSeccion(id) {
   if (id === "usuarios") cargarUsuarios();
   if (id === "empleos") cargarEmpleos();
 }
+
+
 
 function volverInicio() {
   document.querySelectorAll(".admin-section").forEach(sec => sec.style.display = "none");
@@ -82,7 +95,7 @@ async function cargarEmpleos() {
       fila.innerHTML = `
         <td>${empleo.titulo}</td>
         <td>${empleo.ubicacion}</td>
-        <td>${empleo.Modalidad || 'No especificado'}</td>
+        <td>${empleo.modalidad || 'No especificado'}</td>
         <td>
           <button class="btn-edit" onclick="editarEmpleo('${empleo._id}')">Editar</button>
           <button class="btn-delete" onclick="eliminarEmpleo('${empleo._id}')">Eliminar</button>
@@ -124,3 +137,4 @@ async function eliminarEmpleo(id) {
     console.error("Error:", error);
   }
 }
+

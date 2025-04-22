@@ -130,23 +130,28 @@ async function handleLoginSubmit(e) {
             // Redireccionar según rol
             // const destino = data.usuario.rol === 'solicitante' ? 'buscadorEmpleo.html' : 'index.html';
             // window.location.href = destino;
+            const successMessage = document.getElementById('successMessage');
+            successMessage.textContent = '✅ Inicio de sesión correcto. Redirigiendo...';
+            successMessage.style.display = 'block';
 
-            let destino;
-            switch (data.usuario.rol) {
-                case 'solicitante':
-                    destino = 'buscadorEmpleo.html';
-                    break;
-                case 'empleador':
-                    destino = 'panelEmpresarial.html';
-                    break;
-                case 'admin':
-                    destino = 'panelAdministrador.html';
-                    break;
-                default:
-                    destino = 'index.html';
-            }
-
-            window.location.href = destino;
+            setTimeout(() => {
+                let destino;
+                switch (data.usuario.rol) {
+                    case 'solicitante':
+                        destino = 'buscadorEmpleo.html';
+                        break;
+                    case 'empleador':
+                        destino = 'panelEmpresarial.html';
+                        break;
+                    case 'admin':
+                        destino = 'panelAdministrador.html';
+                        break;
+                    default:
+                        destino = 'index.html';
+                }
+        
+                window.location.href = destino;
+            }, 2000); // Espera 2 segundos
         
         } else {
             showError(email, data.msg || 'Correo o contraseña incorrectos');
@@ -158,6 +163,7 @@ async function handleLoginSubmit(e) {
         enableButton(submitBtn, 'Iniciar Sesión');
     }
 }
+
 
 
 

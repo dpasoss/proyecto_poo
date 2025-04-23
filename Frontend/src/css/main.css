@@ -347,3 +347,31 @@ footer a {
     }
 }
 
+.index-pic {
+    width: 100%;
+}
+
+.index {
+    width: 600px !important;
+}
+
+.index .actions {
+    display: flex;
+    flex-direction: column;
+}
+
+.index a {
+    background-color: #4a2b7a;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 8px 0;
+    color: #ddd;
+    transition: all 0.5s;
+    text-align: center;
+    font-size: 20px;
+}
+
+.index a:hover {
+    background-color: #6d3eb4;
+    color: #ddd;
+}

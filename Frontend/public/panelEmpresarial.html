@@ -92,69 +92,77 @@
         <form class="form rectangulo">
             <h2 class="titulo1">Registro Empleo</h2>
             <br>
-
+          
             <div>
-                <label for="id" class="formbold-form-label">ID:</label>
-                <input type="text" name="id" id="id" class="form-control" readonly="true"/>
+              <label for="id" class="formbold-form-label">ID:</label>
+              <input type="text" name="id" id="id" class="form-control" readonly />
             </div>  
-
+          
             <br>
-
+          
             <div>
-                <label for="titulo" class="formbold-form-label"> Título de trabajo: </label>
-                <input type="text" id="titulo" class="form-control"></input>
+              <label for="titulo" class="formbold-form-label">Título de trabajo:</label>
+              <input type="text" id="titulo" class="form-control" />
             </div>
-
-            <br>
-            <div>
-                <label for="descripcion" class="formbold-form-label"> Descripción: </label>
-                <input type="text" id="descripcion" class="form-control"></input>
-            </div>
-
+          
             <br>
             <div>
-                <label for="salario" class="formbold-form-label"> Salario: </label>
-                <input type="text" id="salario" class="form-control"></input>
+              <label for="descripcion" class="formbold-form-label">Descripción:</label>
+              <input type="text" id="descripcion" class="form-control" />
             </div>
-
+          
             <br>
             <div>
-                <label for="ubicacion" class="formbold-form-label"> Ubicación: </label>
-                <input type="text" id="ubicacion" class="form-control"></input>
+              <label for="salario" class="formbold-form-label">Salario:</label>
+              <input type="number" id="salario" class="form-control" />
             </div>
-
+          
             <br>
             <div>
-                <label for="tipoTrabajo" class="formbold-form-label">Tipo de trabajo:</label>
-                <input type="text" id="tipoTrabajo" class="form-control"></input>
-
+              <label for="ubicacion" class="formbold-form-label">Ubicación:</label>
+              <input type="text" id="ubicacion" class="form-control" />
             </div>
+          
             <br>
             <div>
-                <label for="modalidad" class="formbold-form-label">Modalidad:</label>
-                <input type="text" id="modalidad" class="form-control"></input>
-
+              <label for="tipoTrabajo" class="formbold-form-label">Tipo de trabajo:</label>
+              <select id="tipoTrabajo" class="form-control">
+                <option value="">Seleccione una opción</option>
+                <option value="tiempo completo">Tiempo completo</option>
+                <option value="parcial">Parcial</option>
+              </select>
             </div>
+          
             <br>
-
             <div>
-                <label for="vencimiento" class="formbold-form-label"> Vencimiento: </label>
-                <input type="text" id="vencimiento" class="form-control"></input>
+              <label for="modalidad" class="formbold-form-label">Modalidad:</label>
+              <select id="modalidad" class="form-control">
+                <option value="">Seleccione una opción</option>
+                <option value="onsite">Presencial</option>
+                <option value="hibrido">Híbrido</option>
+                <option value="remoto">Remoto</option>
+              </select>
             </div>
+          
             <br>
-
+            <div>
+              <label for="vencimiento" class="formbold-form-label">Vencimiento:</label>
+              <input type="date" id="vencimiento" class="form-control" />
+            </div>
+          
+            <br>
             <div style="display: none;">
-                <label for="empresa" class="formbold-form-label"> Empresa: </label>
-                <input type="text" id="empresa" class="form-control" readonly/>
+              <label for="empresa" class="formbold-form-label">Empresa:</label>
+              <input type="text" id="empresa" class="form-control" readonly />
             </div>
-
+          
             <br>
             <button class="formbold-btn" id="btnListar">Listar</button>
             <button class="formbold-btn" id="btnGuardar">Guardar</button>
             <button class="formbold-btn" id="btnActualizar">Guardar Cambios</button>
             <button class="formbold-btn" id="btnLimpiar">Limpiar</button>
-            
-        </form>    
+          </form>
+          
 
     </section>
 

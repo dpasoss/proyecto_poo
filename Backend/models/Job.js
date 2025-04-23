@@ -39,6 +39,10 @@ export const jobSchema = new mongoose.Schema({
   aplicantes: {
     type: Number,
     default: 0
+  },
+  activo: {
+    type: Boolean,
+    default: true
   }
 }, {
   timestamps: true
@@ -46,6 +50,7 @@ export const jobSchema = new mongoose.Schema({
 
 const Job = mongoose.model('Job', jobSchema);
 export default Job;
+
 
 
 

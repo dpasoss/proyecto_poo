@@ -87,7 +87,11 @@ export const aplicarTrabajo = async (req, res) => {
       incorporacion: req.body.incorporacion
     });
 
+   console.log("🧪 Antes de guardar:", nuevaAplicacion);
+
     await nuevaAplicacion.save();
+
+    console.log("✅ Aplicación guardada");
 
     res.status(201).json({ mensaje: "Aplicación enviada exitosamente" });
   } catch (error) {
@@ -95,7 +99,6 @@ export const aplicarTrabajo = async (req, res) => {
     res.status(500).json({ mensaje: "Error al aplicar al trabajo" });
   }
 };
-
 
 // Buscar trabajos con filtros dinámicos 
 export const buscarTrabajos = async (req, res) => {

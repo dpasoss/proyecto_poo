@@ -125,26 +125,7 @@ export const buscarTrabajos = async (req, res) => {
   }
 };
 
-//Actualizar trabajos para el admin
-// export const actualizarTrabajo = async (req, res) => {
-//   try {
-//     const trabajoActualizado = await Job.findByIdAndUpdate(
-//       req.params.id,
-//       req.body,
-//       { new: true }
-//     );
 
-//     if (!trabajoActualizado) {
-//       return res.status(404).json({ mensaje: "Trabajo no encontrado" });
-//     }
-
-//     res.status(200).json(trabajoActualizado);
-//   } catch (error) {
-//     res.status(500).json({ mensaje: "Error al actualizar trabajo", error });
-//   }
-// };
-
-// función para actualizar un libro (PUT)
 export const actualizarTrabajo = async(req,res)=>{   
   try{
       const {id}  = req.params;
@@ -165,6 +146,22 @@ export const obtenerCandidatosPorTrabajo = async (req, res) => {
   } catch (error) {
     console.error("Error al obtener candidatos:", error);
     res.status(500).json({ mensaje: "Error al obtener candidatos", error });
+  }
+};
+
+
+export const cambiarEstadoEmpleo = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const empleo = await Job.findById(id);
+    if (!empleo) return res.status(404).json({ mensaje: "Empleo no encontrado" });
+
+    empleo.activo = !empleo.activo; // alternar estado
+    await empleo.save();
+
+    res.status(200).json({ mensaje: "Estado actualizado", activo: empleo.activo });
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al actualizar el estado", error });
   }
 };
 

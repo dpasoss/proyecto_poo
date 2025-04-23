@@ -1,29 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
   const usuario = JSON.parse(localStorage.getItem('usuario'));
 
-  // Redirigir si no es admin
   if (!usuario || usuario.rol !== 'admin') {
-    alert("⛔ Acceso denegado. Solo administradores pueden ingresar.");
-    window.location.href = "index.html";
+    Swal.fire({
+      icon: 'error',
+      title: 'Acceso denegado',
+      text: 'Solo administradores pueden ingresar',
+      confirmButtonText: 'OK'
+    }).then(() => {
+      window.location.href = "index.html";
+    });
     return;
   }
 
-  // Ocultar el panel empresarial si el rol es admin
   const navEmpresarial = document.getElementById('nav-panel-empresarial');
-  if (navEmpresarial) {
-    navEmpresarial.style.display = 'none';
-  }
+  if (navEmpresarial) navEmpresarial.style.display = 'none';
 });
-
-
 
 function mostrarSeccion(id) {
   document.getElementById("adminHome").style.display = "none";
   document.querySelectorAll(".admin-section").forEach(sec => sec.style.display = "none");
   document.getElementById(id).style.display = "block";
-
   if (id === "usuarios") cargarUsuarios();
   if (id === "empleos") cargarEmpleos();
+  if (id === "moderacion") cargarModeracion();
+
 }
 
 function volverInicio() {
@@ -31,7 +32,6 @@ function volverInicio() {
   document.getElementById("adminHome").style.display = "grid";
 }
 
-// Obtener usuarios desde el backend
 async function cargarUsuarios() {
   try {
     const res = await fetch("http://localhost:3000/api/users");
@@ -57,37 +57,35 @@ async function cargarUsuarios() {
   }
 }
 
-
-function editarUsuario(id) {
-  alert(`🔧 Aquí editarías el usuario con ID: ${id}`);
- 
-}
-
-// Eliminar usuario con confirmación nativa
 async function eliminarUsuario(id) {
-  const confirmar = confirm("¿Estás segura/o de eliminar este usuario?");
-  if (!confirmar) return;
+  const confirmar = await Swal.fire({
+    title: '¿Eliminar usuario?',
+    text: 'Esta acción no se puede deshacer.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  });
+
+  if (!confirmar.isConfirmed) return;
 
   try {
     const res = await fetch(`http://localhost:3000/api/users/${id}`, {
       method: "DELETE"
     });
-
     const data = await res.json();
 
     if (res.ok) {
-      alert("✅ Usuario eliminado correctamente.");
+      Swal.fire('¡Eliminado!', 'El usuario ha sido eliminado.', 'success');
       cargarUsuarios();
     } else {
-      alert("❌ Error: " + data.mensaje);
+      Swal.fire('Error', data.mensaje, 'error');
     }
   } catch (error) {
-    alert("❌ Error al eliminar el usuario.");
-    console.error("Error al eliminar:", error);
+    Swal.fire('Error', 'No se pudo eliminar el usuario.', 'error');
   }
 }
 
-// Cargar empleos
 async function cargarEmpleos() {
   try {
     const res = await fetch("http://localhost:3000/job");
@@ -113,38 +111,37 @@ async function cargarEmpleos() {
   }
 }
 
-
-function editarEmpleo(id) {
-  alert(`✏️ Aquí editarías el empleo con ID: ${id}`);
-
-}
-
-// Eliminar empleo
 async function eliminarEmpleo(id) {
-  const confirmar = confirm("¿Estás segura/o de eliminar este empleo?");
-  if (!confirmar) return;
+  const confirmar = await Swal.fire({
+    title: '¿Eliminar empleo?',
+    text: 'Esta acción no se puede deshacer.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  });
+
+  if (!confirmar.isConfirmed) return;
 
   try {
     const res = await fetch(`http://localhost:3000/job/${id}`, {
       method: "DELETE"
     });
-
     const data = await res.json();
 
     if (res.ok) {
-      alert("✅ Empleo eliminado correctamente.");
+      Swal.fire('¡Eliminado!', 'El empleo ha sido eliminado.', 'success');
       cargarEmpleos();
     } else {
-      alert("❌ Error: " + data.mensaje);
+      Swal.fire('Error', data.mensaje, 'error');
     }
   } catch (error) {
-    alert("❌ Error al eliminar el empleo.");
-    console.error("Error:", error);
+    Swal.fire('Error', 'No se pudo eliminar el empleo.', 'error');
   }
 }
 
 let entidadEnEdicion = null;
-let tipoEdicion = ''; // "usuario" o "empleo"
+let tipoEdicion = '';
 
 function editarUsuario(id) {
   tipoEdicion = 'usuario';
@@ -168,8 +165,13 @@ function editarEmpleo(id) {
       entidadEnEdicion = data;
       abrirModal('Editar Empleo', [
         { name: 'titulo', value: data.titulo },
+        { name: 'descripcion', value: data.descripcion || '' },
+        { name: 'salario', value: data.salario || '' },
         { name: 'ubicacion', value: data.ubicacion },
-        { name: 'modalidad', value: data.modalidad }
+        { name: 'tipoTrabajo', value: data.tipoTrabajo || 'tiempo completo' },
+        { name: 'modalidad', value: data.modalidad || 'onsite' },
+        { name: 'vencimiento', value: data.vencimiento?.slice(0, 10) || '' },
+        { name: 'empresa', value: data.empresa || '' }
       ]);
     });
 }
@@ -178,10 +180,18 @@ function abrirModal(titulo, campos) {
   const form = document.getElementById('formEditar');
   document.getElementById('modalTitulo').textContent = titulo;
   form.innerHTML = '';
+
   campos.forEach(campo => {
-    form.innerHTML += `<label>${campo.name}</label>
-      <input type="text" name="${campo.name}" value="${campo.value}" required />`;
+    let tipo = 'text';
+    if (campo.name === 'salario') tipo = 'number';
+    if (campo.name === 'vencimiento') tipo = 'date';
+
+    form.innerHTML += `
+      <label>${campo.name}</label>
+      <input type="${tipo}" name="${campo.name}" value="${campo.value}" required />
+    `;
   });
+
   document.getElementById('modalEditar').style.display = 'flex';
 }
 
@@ -191,7 +201,6 @@ function cerrarModal() {
   tipoEdicion = '';
 }
 
-//Guarda los cambios del editar del admin
 async function guardarCambios() {
   const form = document.getElementById('formEditar');
   const data = Object.fromEntries(new FormData(form));
@@ -207,16 +216,94 @@ async function guardarCambios() {
     const json = await res.json();
 
     if (res.ok) {
-      alert("✅ Cambios guardados correctamente.");
+      Swal.fire({
+        icon: 'success',
+        title: 'Guardado',
+        text: 'Cambios guardados correctamente.',
+        timer: 2000,
+        showConfirmButton: false
+      });
+
+      
+      if (tipoEdicion === 'usuario') {
+        await cargarUsuarios();
+      } else {
+        await cargarEmpleos();
+      }
+
       cerrarModal();
-      tipoEdicion === 'usuario' ? cargarUsuarios() : cargarEmpleos();
+
     } else {
-      alert("❌ Error al guardar los cambios.");
+      Swal.fire('Error', 'No se pudieron guardar los cambios.', 'error');
       console.error(json);
     }
   } catch (error) {
-    console.error("Error:", error);
+    Swal.fire('Error', 'Ocurrió un error al guardar.', 'error');
+    console.error(error);
   }
 }
+
+async function cargarModeracion() {
+  try {
+    const res = await fetch("http://localhost:3000/job");
+    const empleos = await res.json();
+    const tbody = document.getElementById("tablaModeracion");
+    tbody.innerHTML = "";
+
+    empleos.forEach(empleo => {
+      const fila = document.createElement("tr");
+      fila.innerHTML = `
+        <td>${empleo.titulo}</td>
+        <td>${empleo.empresa || 'No especificada'}</td>
+        <td>${empleo.activo ? 'Activo' : 'Inactivo'}</td>
+        <td>
+          <button class="${empleo.activo ? 'btn-delete' : 'btn-edit'}"
+          onclick="cambiarEstado('${empleo._id}', ${empleo.activo})">
+        ${empleo.activo ? 'Inactivar' : 'Activar'}
+          </button>
+
+      `;
+      tbody.appendChild(fila);
+    });
+  } catch (error) {
+    console.error("Error al cargar moderación:", error);
+  }
+}
+
+
+async function cambiarEstado(id, estadoActual) {
+  const accion = estadoActual ? 'inactivar' : 'activar';
+
+  const confirmar = await Swal.fire({
+    title: `¿Deseas ${accion} esta publicación?`,
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, confirmar',
+    cancelButtonText: 'Cancelar'
+  });
+
+  if (confirmar.isConfirmed) {
+    try {
+      const res = await fetch(`http://localhost:3000/job/estado/${id}`, {
+        method: 'PUT'
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        Swal.fire('Listo ✅', `La publicación fue ${accion} con éxito`, 'success');
+        cargarModeracion(); 
+      } else {
+        Swal.fire('Error', data.mensaje || 'Ocurrió un problema al cambiar el estado.', 'error');
+      }
+    } catch (error) {
+      Swal.fire('Error', 'No se pudo conectar con el servidor.', 'error');
+      console.error('Error al cambiar estado:', error);
+    }
+  }
+}
+
+
+
 
 
